@@ -497,6 +497,111 @@ public class Main {
                 Fdb.set(n+4,fur.getShape());
 
             }
+
+            else if (IN.equals("LP") || IN.equals("RU") || IN.equals("TA") || IN.equals("FN") || IN.equals("PR") || IN.equals("AC")){
+                Electronic.Movable m = new Electronic.Movable();
+                Electronic.Unmovable um = new Electronic.Unmovable();
+                Electronic elc = new Electronic();
+
+                ArrayList<String> TempRec = elc.DisplayForView(Edb,ItemCode);
+                if (TempRec==null){
+                    System.out.print("Invalid Item No. Please Re-Enter..");
+                    continue;
+                }
+
+                switch (IN) {
+                    case "LP" -> m.Laptop(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(4));
+                    case "RU" -> m.Router(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(5));
+                    case "TA" -> m.Tablet(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
+                    case "FN" -> um.Fan(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
+                    case "PR" -> um.Printer(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(7));
+                    case "AC" -> um.AC(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
+                }
+
+                System.out.print("Price : ");
+                TempVal=sc.next();
+                elc.setPrice(TempVal);
+
+                if(IN.equals("LP")){
+                    System.out.print("Color : ");
+                    TempVal=sc.next();
+                    elc.setColor(TempVal);
+                }
+
+                if(IN.equals("RU")){
+                    System.out.print("Internet Service Provider : ");
+                    TempVal=sc.next();
+                    elc.setISP(TempVal);
+                }
+
+                if(IN.equals("TA") || IN.equals("FN") || IN.equals("AC")){
+                    System.out.print("Brand ");
+                    TempVal=sc.next();
+                    elc.setBrand(TempVal);
+                }
+
+                if (IN.equals("PR")){
+                    System.out.print("Printer Type : ");
+                    TempVal=sc.next();
+                    elc.setPrinterType(TempVal);
+                }
+
+                String NO = ItemCode.substring(2);
+                int n = Integer.parseInt(NO);
+
+
+                Edb.set(n+3,elc.getColor());
+                Edb.set(n+4,elc.getPrice());
+                Edb.set(n+5,elc.getISP());
+                Edb.set(n+6,elc.getBrand());
+                Edb.set(n+7,elc.getPrinterType());
+            }
+
+            else {
+                Stationary sta =new Stationary();
+                ArrayList<String> TempRec = sta.DisplayForView(Fdb,ItemCode);
+                if (TempRec==null){
+                    System.out.print("Invalid Item No. Please Re-Enter..");
+                    continue;
+                }
+
+                switch (IN) {
+                    case "BK" -> sta.Book(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                    case "PC" -> sta.Pencil(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(4));
+                    case "PE" -> sta.Pen(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(4));
+                    case "FL" -> sta.File(TempRec.get(0), TempRec.get(1), TempRec.get(5));
+                }
+
+                System.out.print("Price : ");
+                TempVal=sc.next();
+                sta.setPrice(TempVal);
+
+                if(IN.equals("FL")){
+                    System.out.print("Color : ");
+                    TempVal=sc.next();
+                    sta.setColor(TempVal);
+                }
+
+                else if (IN.equals("BK")){
+                    System.out.print("Subject : ");
+                    TempVal=sc.next();
+                    sta.setSubject(TempVal);
+                }
+
+                else {
+                    System.out.print("Color : ");
+                    TempVal=sc.next();
+                    sta.setColor(TempVal);
+                }
+
+                String NO = ItemCode.substring(2);
+                int n = Integer.parseInt(NO);
+
+                Sdb.set(n+2,sta.getPrice());
+                Sdb.set(n+3,sta.getSubject());
+                Sdb.set(n+4,sta.getColor());
+                Sdb.set(n+5,sta.getFileType());
+            }
             break;
         }
     }

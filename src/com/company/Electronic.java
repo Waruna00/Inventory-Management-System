@@ -118,6 +118,33 @@ public class Electronic {
         return PrinterType;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNo(String no) {
+        No = no;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setISP(String ISP) {
+        this.ISP = ISP;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setPrinterType(String printerType) {
+        PrinterType = printerType;
+    }
 
     public void display(ArrayList<String> db, int TempUserInput, int choice){
         String ItemName;
@@ -206,5 +233,24 @@ public class Electronic {
             }
             i++;
         }
+    }
+
+    public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){
+        ArrayList<String> Temp = new ArrayList<>();
+        int i=0;
+        for (String s : db){
+            if (ItemCode.equals(s)){
+                Temp.add(db.get(i));
+                Temp.add(db.get(i+1));
+                Temp.add(db.get(i+2));
+                Temp.add(db.get(i+3));
+                Temp.add(db.get(i+4));
+                Temp.add(db.get(i+5));
+                Temp.add(db.get(i+6));
+                Temp.add(db.get(i+7));
+            }
+            i++;
+        }
+        return Temp;
     }
 }

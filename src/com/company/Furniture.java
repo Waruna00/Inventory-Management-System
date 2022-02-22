@@ -128,7 +128,7 @@ public class Furniture {
     }
 
     public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){
-        ArrayList<String> Temp = null;
+        ArrayList<String> Temp = new ArrayList<>();
         int i=0;
         for (String s : db){
             if (ItemCode==s){

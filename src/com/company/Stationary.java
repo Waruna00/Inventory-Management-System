@@ -61,6 +61,30 @@ public class Stationary {
         return FileType;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNo(String no) {
+        No = no;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setFileType(String fileType) {
+        FileType = fileType;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
     public void display(ArrayList<String> db, int TempUserInput){
         String ItemName;
         if (TempUserInput==0){
@@ -102,5 +126,22 @@ public class Stationary {
             }
             i++;
         }
+    }
+
+    public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){
+        ArrayList<String> Temp = new ArrayList<>();
+        int i=0;
+        for (String s : db){
+            if (ItemCode.equals(s)){
+                Temp.add(db.get(i));
+                Temp.add(db.get(i+1));
+                Temp.add(db.get(i+2));
+                Temp.add(db.get(i+3));
+                Temp.add(db.get(i+4));
+                Temp.add(db.get(i+5));
+            }
+            i++;
+        }
+        return Temp;
     }
 }
