@@ -1,5 +1,4 @@
 package com.company;
-
 import java.util.ArrayList;
 
 public class Furniture {
@@ -14,6 +13,7 @@ public class Furniture {
         this.name = name;
         this.material = mat;
         this.color = col;
+        //this.shape=shp;
 
     }
 
@@ -98,14 +98,19 @@ public class Furniture {
         System.out.print("No"+"\t"+"Name"+"\t"+"Material "+" Color"+"\t"+"Shape"+"\n");
         int i=1;
         for (String s : TempList) {
-            System.out.print(s+"\t");
-            if (i%5==0){
-                System.out.print("\n");
+            if (s==null || s.equals("---")){
+                System.out.print("\t");
             }
+            else {
+                System.out.print(s+"\t");
+                if (i%5==0){
+                    System.out.print("\n");
+                }
+            }
+
             i++;
         }
     }
-
 
     public void setNo(String no) {
         No = no;

@@ -3,6 +3,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
 
+    /*
+                     ||Group 02||
+
+    Tharindu Sachintha          -   IM/2019/052
+    Vishaka Bandara             -   IM/2019/046
+    Tharindu sankarshana        -   IM/2019/055
+    Lashadya Vidumini           -   IM/2019/103
+    Naveen Jayathilaka          -   IM/2019/044
+    Mathurshi Vijayarajendran   -   IM/2019/037
+    Waruna Sri Wickramasinghe   -   IM/2019/028
+    Nipuni De Silva             -   IM/2019/093
+    Nihim Abhayarathne          -   IM/2018/099
+    Udara Suranimala            -   IM/2019/080
+    Sandushi weraduwa           -   IM/2019/112
+
+
+    */
+
     public static String[] TempData = new String[10];
     public static String TempVal;
     public static Scanner sc = new Scanner(System.in);
@@ -15,7 +33,7 @@ public class Main {
         while (true){
             System.out.println("=================================================================================");
             System.out.println("Press 1 for Furniture, Press 2 for Electronic Equipment, Press 3 for Stationary");
-            System.out.print("Enter the item category :");
+            System.out.print("Enter the item category : ");
             int category = sc.nextInt();
 
             if(category == 1) { //when user need to enter new Furniture item
@@ -452,22 +470,22 @@ public class Main {
     public static void modify(){
         while(true){
             System.out.println("=================================================================================");
-            System.out.println("Enter the Item Code : ");
+            System.out.print("Enter the Item Code : ");
             String ItemCode=sc.next();
             String IN1 = Character.toString(ItemCode.charAt(0));
             String IN2 = Character.toString(ItemCode.charAt(1));
             String IN = IN1+IN2;
             if (!(IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP") || IN.equals("LP") || IN.equals("RU") || IN.equals("TA") || IN.equals("FN") || IN.equals("PR") || IN.equals("AC") || IN.equals("BK") || IN.equals("PC") || IN.equals("PE") || IN.equals("FL"))){
-                System.out.print("Invalid Item No. Please Re-Enter..");
+                System.out.println("Invalid Item No. Please Re-Enter..");
+                continue;
             }
             else if (IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP")){
                 Furniture fur =new Furniture();
                 ArrayList<String> TempRec = fur.DisplayForView(Fdb,ItemCode);
-                if (TempRec==null){
+                if (TempRec.size()<=5){
                     System.out.print("Invalid Item No. Please Re-Enter..");
                     continue;
                 }
-
                 switch (IN) {
                     case "CH" -> fur.Chair(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
                     case "TB" -> fur.Table(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3), TempRec.get(4));
@@ -482,6 +500,7 @@ public class Main {
                 System.out.print("Color : ");
                 TempVal=sc.next();
                 fur.setColor(TempVal);
+
                 if (IN.equals("TB")){
                     System.out.print("Shape : ");
                     TempVal=sc.next();
@@ -490,7 +509,7 @@ public class Main {
 
                 String NO = ItemCode.substring(2);
                 int n = Integer.parseInt(NO);
-
+                n=n-1;
                 Fdb.set(n+2,fur.getMaterial());
                 Fdb.set(n+3,fur.getColor());
                 Fdb.set(n+4,fur.getShape());
@@ -635,23 +654,21 @@ public class Main {
                     case "CP" -> fur.Cupboard(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
                 }
 
-                //System.out.print("Material : ");
                 TempVal="---";
                 fur.setMaterial(TempVal);
                 fur.setColor(TempVal);
-                fur.setColor(TempVal);
+                fur.setShape(TempVal);
                 fur.setNo(TempVal);
                 fur.setName(TempVal);
 
                 String NO = ItemCode.substring(2);
                 int n = Integer.parseInt(NO);
-
+                n=n-1;
                 Fdb.set(n,fur.getNo());
                 Fdb.set(n+1,fur.getName());
                 Fdb.set(n+2,fur.getMaterial());
                 Fdb.set(n+3,fur.getColor());
                 Fdb.set(n+4,fur.getShape());
-
             }
 
             else if (IN.equals("LP") || IN.equals("RU") || IN.equals("TA") || IN.equals("FN") || IN.equals("PR") || IN.equals("AC")){
@@ -659,12 +676,12 @@ public class Main {
                 Electronic.Unmovable um = new Electronic.Unmovable();
                 Electronic elc = new Electronic();
 
-                ArrayList<String> TempRec = elc.DisplayForView(Edb,ItemCode);
-                if (TempRec==null){
+                ArrayList<String> TempRec = new ArrayList<>(elc.DisplayForView(Edb, ItemCode));
+
+                if (TempRec.size()<=5){
                     System.out.print("Invalid Item No. Please Re-Enter..");
                     continue;
                 }
-
                 switch (IN) {
                     case "LP" -> m.Laptop(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(4));
                     case "RU" -> m.Router(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(5));
@@ -684,10 +701,8 @@ public class Main {
                 elc.setBrand(TempVal);
                 elc.setPrinterType(TempVal);
 
-
                 String NO = ItemCode.substring(2);
                 int n = Integer.parseInt(NO);
-
 
                 Edb.set(n,elc.getNo());
                 Edb.set(n+1,elc.getType());
@@ -749,6 +764,7 @@ public class Main {
             System.out.println("Press 3 for remove items from the inventory");
             System.out.println("Press 4 for view the items available in the inventory");
             System.out.println("Press 0 for Exit");
+            System.out.print("User Input : ");
             int option = sc.nextInt();
 
             if (option==1){

@@ -1,5 +1,4 @@
 package com.company;
-
 import java.util.ArrayList;
 
 public class Electronic {
@@ -231,6 +230,11 @@ public class Electronic {
         System.out.print("No"+"\t"+"Name"+"\t"+"Color"+"\t"+"Price"+"\t"+"ISP"+"\t"+"Brand"+"\t"+"Printer Type"+"\n");
         int i=1;
         for (String s : TempList) {
+            if (s==null || s.equals("---")){
+                System.out.print("\t");
+                i++;
+                continue;
+            }
             System.out.print(s+"\t");
             if (i%8==0){
                 System.out.print("\n");

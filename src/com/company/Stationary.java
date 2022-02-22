@@ -1,5 +1,4 @@
 package com.company;
-
 import java.util.ArrayList;
 
 public class Stationary {
@@ -120,6 +119,11 @@ public class Stationary {
         System.out.print("No"+"\t"+"Name"+"\t"+"Price"+"\t"+"Subject"+"\t"+"Color"+"\t"+"File Type"+"\n");
         int i=1;
         for (String s : TempList) {
+            if (s==null || s.equals("---")){
+                i++;
+                System.out.print("\t");
+                continue;
+            }
             System.out.print(s+"\t");
             if (i%6==0){
                 System.out.print("\n");
