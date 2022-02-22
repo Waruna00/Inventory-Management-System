@@ -118,14 +118,6 @@ public class Electronic {
         return PrinterType;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNo(String no) {
-        No = no;
-    }
-
     public void setColor(String color) {
         this.color = color;
     }
@@ -136,6 +128,18 @@ public class Electronic {
 
     public void setISP(String ISP) {
         this.ISP = ISP;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNo(String no) {
+        No = no;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setPrice(String price) {

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
 
-
     public static String[] TempData = new String[10];
     public static String TempVal;
     public static Scanner sc = new Scanner(System.in);
@@ -458,7 +457,7 @@ public class Main {
             String IN1 = Character.toString(ItemCode.charAt(0));
             String IN2 = Character.toString(ItemCode.charAt(1));
             String IN = IN1+IN2;
-            if (!(IN=="CH"||IN=="TB"||IN=="BR"||IN=="CP"||IN=="LP"||IN=="RU"||IN=="TA"||IN=="FN"||IN=="PR"||IN=="AC"||IN=="BK"||IN=="PC"||IN=="PE"||IN=="FL")){
+            if (!(IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP") || IN.equals("LP") || IN.equals("RU") || IN.equals("TA") || IN.equals("FN") || IN.equals("PR") || IN.equals("AC") || IN.equals("BK") || IN.equals("PC") || IN.equals("PE") || IN.equals("FL"))){
                 System.out.print("Invalid Item No. Please Re-Enter..");
             }
             else if (IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP")){
@@ -577,9 +576,9 @@ public class Main {
                 sta.setPrice(TempVal);
 
                 if(IN.equals("FL")){
-                    System.out.print("Color : ");
+                    System.out.print("File Type : ");
                     TempVal=sc.next();
-                    sta.setColor(TempVal);
+                    sta.setFileType(TempVal);
                 }
 
                 else if (IN.equals("BK")){
@@ -606,7 +605,138 @@ public class Main {
         }
     }
 
+    public static void remove(){
+        Scanner sc = new Scanner(System.in);
 
+        while (true){
+            System.out.println("=================================================================================");
+            System.out.println("Enter the Item Code : ");
+            String ItemCode=sc.next();
+            String IN1 = Character.toString(ItemCode.charAt(0));
+            String IN2 = Character.toString(ItemCode.charAt(1));
+            String IN = IN1+IN2;
+            if (!(IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP") || IN.equals("LP") || IN.equals("RU") || IN.equals("TA") || IN.equals("FN") || IN.equals("PR") || IN.equals("AC") || IN.equals("BK") || IN.equals("PC") || IN.equals("PE") || IN.equals("FL"))) {
+                System.out.print("Invalid Item No. Please Re-Enter..");
+                continue;
+            }
+
+            else if (IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP")){
+                Furniture fur = new Furniture();
+                ArrayList<String> TempRec = fur.DisplayForView(Fdb,ItemCode);
+                if (TempRec==null){
+                    System.out.print("Invalid Item No. Please Re-Enter..");
+                    continue;
+                }
+
+                switch (IN) {
+                    case "CH" -> fur.Chair(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                    case "TB" -> fur.Table(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3), TempRec.get(4));
+                    case "BR" -> fur.BookRacks(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                    case "CP" -> fur.Cupboard(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                }
+
+                //System.out.print("Material : ");
+                TempVal="---";
+                fur.setMaterial(TempVal);
+                fur.setColor(TempVal);
+                fur.setColor(TempVal);
+                fur.setNo(TempVal);
+                fur.setName(TempVal);
+
+                String NO = ItemCode.substring(2);
+                int n = Integer.parseInt(NO);
+
+                Fdb.set(n,fur.getNo());
+                Fdb.set(n+1,fur.getName());
+                Fdb.set(n+2,fur.getMaterial());
+                Fdb.set(n+3,fur.getColor());
+                Fdb.set(n+4,fur.getShape());
+
+            }
+
+            else if (IN.equals("LP") || IN.equals("RU") || IN.equals("TA") || IN.equals("FN") || IN.equals("PR") || IN.equals("AC")){
+                Electronic.Movable m = new Electronic.Movable();
+                Electronic.Unmovable um = new Electronic.Unmovable();
+                Electronic elc = new Electronic();
+
+                ArrayList<String> TempRec = elc.DisplayForView(Edb,ItemCode);
+                if (TempRec==null){
+                    System.out.print("Invalid Item No. Please Re-Enter..");
+                    continue;
+                }
+
+                switch (IN) {
+                    case "LP" -> m.Laptop(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(4));
+                    case "RU" -> m.Router(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(5));
+                    case "TA" -> m.Tablet(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
+                    case "FN" -> um.Fan(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
+                    case "PR" -> um.Printer(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(7));
+                    case "AC" -> um.AC(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
+                }
+
+                TempVal="---";
+                elc.setNo(TempVal);
+                elc.setName(TempVal);
+                elc.setType(TempVal);
+                elc.setColor(TempVal);
+                elc.setPrice(TempVal);
+                elc.setISP(TempVal);
+                elc.setBrand(TempVal);
+                elc.setPrinterType(TempVal);
+
+
+                String NO = ItemCode.substring(2);
+                int n = Integer.parseInt(NO);
+
+
+                Edb.set(n,elc.getNo());
+                Edb.set(n+1,elc.getType());
+                Edb.set(n+2,elc.getName());
+                Edb.set(n+3,elc.getColor());
+                Edb.set(n+4,elc.getPrice());
+                Edb.set(n+5,elc.getISP());
+                Edb.set(n+6,elc.getBrand());
+                Edb.set(n+7,elc.getPrinterType());
+            }
+
+            else {
+                Stationary sta =new Stationary();
+                ArrayList<String> TempRec = sta.DisplayForView(Fdb,ItemCode);
+                if (TempRec==null){
+                    System.out.print("Invalid Item No. Please Re-Enter..");
+                    continue;
+                }
+
+                switch (IN) {
+                    case "BK" -> sta.Book(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                    case "PC" -> sta.Pencil(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(4));
+                    case "PE" -> sta.Pen(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(4));
+                    case "FL" -> sta.File(TempRec.get(0), TempRec.get(1), TempRec.get(5));
+                }
+
+                TempVal="---";
+                sta.setNo(TempVal);
+                sta.setName((TempVal));
+                sta.setPrice(TempVal);
+                sta.setFileType(TempVal);
+                sta.setSubject(TempVal);
+                sta.setColor(TempVal);
+
+                String NO = ItemCode.substring(2);
+                int n = Integer.parseInt(NO);
+
+                Sdb.set(n,sta.getNo());
+                Sdb.set(n+1,sta.getName());
+                Sdb.set(n+2,sta.getPrice());
+                Sdb.set(n+3,sta.getSubject());
+                Sdb.set(n+4,sta.getColor());
+                Sdb.set(n+5,sta.getFileType());
+            }
+            System.out.print("Successfully Removed the Record..!!");
+            break;
+
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -628,7 +758,7 @@ public class Main {
                 modify();
             }
             else if (option == 3){
-                //remove();
+                remove();
             }
             else if (option == 4){
                 view();

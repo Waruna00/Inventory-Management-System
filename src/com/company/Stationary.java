@@ -61,12 +61,12 @@ public class Stationary {
         return FileType;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setNo(String no) {
         No = no;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPrice(String price) {

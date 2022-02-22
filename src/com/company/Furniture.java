@@ -131,7 +131,7 @@ public class Furniture {
         ArrayList<String> Temp = new ArrayList<>();
         int i=0;
         for (String s : db){
-            if (ItemCode==s){
+            if (ItemCode.equals(s)){
                 Temp.add(db.get(i));
                 Temp.add(db.get(i+1));
                 Temp.add(db.get(i+2));
