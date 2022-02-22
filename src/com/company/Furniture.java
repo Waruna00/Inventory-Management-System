@@ -105,4 +105,42 @@ public class Furniture {
             i++;
         }
     }
+
+
+    public void setNo(String no) {
+        No = no;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setShape(String shape) {
+        this.shape = shape;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){
+        ArrayList<String> Temp = null;
+        int i=0;
+        for (String s : db){
+            if (ItemCode==s){
+                Temp.add(db.get(i));
+                Temp.add(db.get(i+1));
+                Temp.add(db.get(i+2));
+                Temp.add(db.get(i+3));
+                Temp.add(db.get(i+4));
+            }
+            i++;
+        }
+        return Temp;
+    }
 }
+

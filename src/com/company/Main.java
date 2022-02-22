@@ -450,6 +450,59 @@ public class Main {
 
     }
 
+    public static void modify(){
+        while(true){
+            System.out.println("=================================================================================");
+            System.out.println("Enter the Item Code : ");
+            String ItemCode=sc.next();
+            String IN1 = Character.toString(ItemCode.charAt(0));
+            String IN2 = Character.toString(ItemCode.charAt(1));
+            String IN = IN1+IN2;
+            if (!(IN=="CH"||IN=="TB"||IN=="BR"||IN=="CP"||IN=="LP"||IN=="RU"||IN=="TA"||IN=="FN"||IN=="PR"||IN=="AC"||IN=="BK"||IN=="PC"||IN=="PE"||IN=="FL")){
+                System.out.print("Invalid Item No. Please Re-Enter..");
+            }
+            else if (IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP")){
+                Furniture fur =new Furniture();
+                ArrayList<String> TempRec = fur.DisplayForView(Fdb,ItemCode);
+                if (TempRec==null){
+                    System.out.print("Invalid Item No. Please Re-Enter..");
+                    continue;
+                }
+
+                switch (IN) {
+                    case "CH" -> fur.Chair(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                    case "TB" -> fur.Table(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3), TempRec.get(4));
+                    case "BR" -> fur.BookRacks(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                    case "CP" -> fur.Cupboard(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                }
+
+                System.out.print("Material : ");
+                TempVal=sc.next();
+                fur.setMaterial(TempVal);
+
+                System.out.print("Color : ");
+                TempVal=sc.next();
+                fur.setColor(TempVal);
+                if (IN.equals("TB")){
+                    System.out.print("Shape : ");
+                    TempVal=sc.next();
+                    fur.setShape(TempVal);
+                }
+
+                String NO = ItemCode.substring(2);
+                int n = Integer.parseInt(NO);
+
+                Fdb.set(n+2,fur.getMaterial());
+                Fdb.set(n+3,fur.getColor());
+                Fdb.set(n+4,fur.getShape());
+
+            }
+            break;
+        }
+    }
+
+
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -464,19 +517,15 @@ public class Main {
             int option = sc.nextInt();
 
             if (option==1){
-                //Enter en = new Enter();
                 enter();
             }
             else if (option == 2){
-                //Modify mod = new Modify();
-                //modify();
+                modify();
             }
             else if (option == 3){
-                //Remove rem = new Remove();
                 //remove();
             }
             else if (option == 4){
-                //View vie = new View();
                 view();
             }
             else if (option==0){
