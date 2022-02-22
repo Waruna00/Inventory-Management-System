@@ -8,7 +8,7 @@ public class Main {
 
     Tharindu Sachintha          -   IM/2019/052
     Vishaka Bandara             -   IM/2019/046
-    Tharindu sankarshana        -   IM/2019/055
+    Tharindu Sankarshana        -   IM/2019/055
     Lashadya Vidumini           -   IM/2019/103
     Naveen Jayathilaka          -   IM/2019/044
     Mathurshi Vijayarajendran   -   IM/2019/037
@@ -16,7 +16,7 @@ public class Main {
     Nipuni De Silva             -   IM/2019/093
     Nihim Abhayarathne          -   IM/2018/099
     Udara Suranimala            -   IM/2019/080
-    Sandushi weraduwa           -   IM/2019/112
+    Sandushi Weraduwa           -   IM/2019/112
 
 
     */
