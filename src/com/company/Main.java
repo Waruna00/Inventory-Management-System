@@ -1,4 +1,6 @@
 package com.company;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
@@ -20,6 +22,8 @@ public class Main {
 
 
     */
+
+    DBUtils db = new DBUtils();
 
     public static String[] TempData = new String[10];
     public static String TempVal;
@@ -362,9 +366,9 @@ public class Main {
         }
     }
 
-    public static void view(){
+    public static void view() throws SQLException {
         int category;
-        int TempUserInput;
+        String TempUserInput;
         int choice;
         Scanner sc = new Scanner(System.in);
         while (true){
@@ -381,93 +385,37 @@ public class Main {
         }
 
         if (category==1){
-            while (true){
-                System.out.println("=================================================================================");
-                System.out.println("[ Press 0 for View All Items Press 1 for Chair, Press 2 for Tables, Press 3 for Book Racks, Press 4 for Cupboards ]");
-                System.out.print("Enter the Item name :");
-                TempUserInput = sc.nextInt();
+            System.out.println("=================================================================================");
+            System.out.println("[ Press 0 for View All Items Or Enter the item no ]");
+            System.out.print("Enter the Item No : ");
+            TempUserInput = sc.next();
 
-                if (!(TempUserInput==0 || TempUserInput==1 || TempUserInput==2 || TempUserInput==3 || TempUserInput==4)){
-                    System.out.println("Invalid Input. Please Re-Enter..");
-                    continue;
-                }
-                break;
-            }
             Furniture fur = new Furniture();
-            fur.display(Fdb,TempUserInput);
+            //fur.display(Fdb,TempUserInput);
         }
         else if (category==2){
             Electronic elc = new Electronic();
-            while (true){
-                System.out.println("=================================================================================");
-                System.out.println("Press 0 for All Categories, Press 1 for Movable, Press 2 for Un-movable");
-                System.out.print("Enter the item category :");
-                choice = sc.nextInt();
+            System.out.println("=================================================================================");
+            System.out.println("Press 0 for All Categories, Press 1 for Movable, Press 2 for Un-movable");
+            System.out.print("Enter the item No :");
+            choice = sc.nextInt();
 
-                if (!(choice==0 || choice==1 || choice==2)){
-                    System.out.println("Invalid Input. Please Re-Enter..");
-                    continue;
-                }
-                break;
-            }
-
-            if (choice==0){
-                while (true){
-                    System.out.println("=================================================================================");
-                    System.out.println("[ Press 0 for View All Items Press 1 for LapTop, Press 2 for Routers, Press 3 for Tablet PC ]");
-                    System.out.print("Enter the Item name :");
-                    TempUserInput = sc.nextInt();
-
-                    if (!(TempUserInput==0 || TempUserInput==1 || TempUserInput==2 || TempUserInput==3 || TempUserInput==-1)){
-                        System.out.println("Invalid Input. Please Re-Enter..");
-                        continue;
-                    }
-                    break;
-                }
-            }
-
-            else if (choice==2){
-                while (true){
-                    System.out.println("=================================================================================");
-                    System.out.println("[ Press 0 for View All Items Press 1 for Fans, Press 2 for Printers, Press 3 for Air Conditioners ]");
-                    System.out.print("Enter the Item name :");
-                    TempUserInput = sc.nextInt();
-
-                    if (!(TempUserInput==0 || TempUserInput==1 || TempUserInput==2 || TempUserInput==3 || TempUserInput==-1)){
-                        System.out.println("Invalid Input. Please Re-Enter..");
-                        continue;
-                    }
-                    break;
-                }
-            }
-
-            else {
-                TempUserInput=-1;
-            }
-
-            elc.display(Edb,TempUserInput,choice);
+            elc.display(Edb,1,choice);
         }
 
         else{
-            while (true){
-                System.out.println("=================================================================================");
-                System.out.println("[ Press 0 for View All Items, Press 1 for Books, Press 2 for Pencils, Press 3 Pens, Press 4 for File ]");
-                System.out.print("Enter the Item name :");
-                TempUserInput = sc.nextInt();
+            System.out.println("=================================================================================");
+            System.out.println("[ Press 0 for View All Items Or Enter the item no ]");
+            System.out.print("Enter the Item No : ");
+            TempUserInput = sc.next();
 
-                if (!(TempUserInput==0 || TempUserInput==1 || TempUserInput==2 || TempUserInput==3 || TempUserInput==4)){
-                    System.out.println("Invalid Input. Please Re-Enter..");
-                    continue;
-                }
-                break;
-            }
             Stationary sta = new Stationary();
-            sta.display(Sdb,TempUserInput);
+            sta.display(TempUserInput);
         }
 
     }
 
-    public static void modify(){
+    /*public static void modify(){
         while(true){
             System.out.println("=================================================================================");
             System.out.print("Enter the Item Code : ");
@@ -752,8 +700,8 @@ public class Main {
 
         }
     }
-
-    public static void main(String[] args) {
+*/
+    public static void main(String[] args) throws SQLException {
 
         Scanner sc = new Scanner(System.in);
 
@@ -771,10 +719,10 @@ public class Main {
                 enter();
             }
             else if (option == 2){
-                modify();
+                //modify();
             }
             else if (option == 3){
-                remove();
+                //remove();
             }
             else if (option == 4){
                 view();

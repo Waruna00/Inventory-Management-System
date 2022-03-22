@@ -1,4 +1,6 @@
 package com.company;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Stationary {
@@ -84,52 +86,24 @@ public class Stationary {
         this.subject = subject;
     }
 
-    public void display(ArrayList<String> db, int TempUserInput){
+    public void display(String TempUserInput) throws SQLException {
         String ItemName;
-        if (TempUserInput==0){
+        String list=null;
+        if (TempUserInput=="0"){
             ItemName="ALL";
         }
-        else if (TempUserInput==1){
-            ItemName="BK";
-        }
-        else if (TempUserInput==2){
-            ItemName="PC";
-        }
-        else if (TempUserInput==3){
-            ItemName="PE";
-        }
         else {
-            ItemName="FL";
+            ItemName = TempUserInput;
         }
-        ArrayList<String> TempList = new ArrayList<>();
 
         if (ItemName.equals("ALL")) {
-            TempList.addAll(db);
+
         }
         else {
-            for (int i=0; i< db.size(); i=i+5){
-                if (db.get(i).equals(ItemName)){
-                    for(int ii=i; ii<i+6; ii++){
-                        TempList.add(db.get(ii));
-                    }
-                }
-            }
+            DBUtils data = new DBUtils();
+            list = DBUtils.view(ItemName);
         }
-
-        System.out.print("No"+"\t"+"Name"+"\t"+"Price"+"\t"+"Subject"+"\t"+"Color"+"\t"+"File Type"+"\n");
-        int i=1;
-        for (String s : TempList) {
-            if (s==null || s.equals("---")){
-                i++;
-                System.out.print("\t");
-                continue;
-            }
-            System.out.print(s+"\t");
-            if (i%6==0){
-                System.out.print("\n");
-            }
-            i++;
-        }
+        System.out.print(list);
     }
 
     public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){
