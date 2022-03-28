@@ -88,22 +88,15 @@ public class Stationary {
 
     public void display(String TempUserInput) throws SQLException {
         String ItemName;
-        String list=null;
-        if (TempUserInput=="0"){
+        ArrayList<String> list=null;
+        if (TempUserInput.equals("0")){
             ItemName="ALL";
         }
         else {
             ItemName = TempUserInput;
         }
-
-        if (ItemName.equals("ALL")) {
-
-        }
-        else {
-            DBUtils data = new DBUtils();
-            list = DBUtils.view(ItemName);
-        }
-        System.out.print(list);
+        DBUtils data = new DBUtils();
+        list = DBUtils.view(ItemName);
     }
 
     public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){

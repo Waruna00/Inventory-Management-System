@@ -1,28 +1,36 @@
 package com.company;
 
 import java.sql.*;
-
-//import java.sql.DriverManager;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class DBUtils {
-    public static String view(String ItemName) {
+
+    public static ArrayList<String> view(String ItemName) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String list = null;
+        ArrayList<String> list = new ArrayList<>();
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory","root","Whoiam@123");
-            preparedStatement = connection.prepareStatement("SELECT * FROM stationary WHERE no = ?");
-            preparedStatement.setString(1,ItemName);
+            if (ItemName.equals("ALL")){
+                preparedStatement = connection.prepareStatement("SELECT * FROM stationary");
+            }
+            else {
+                preparedStatement = connection.prepareStatement("SELECT * FROM stationary WHERE no = ?");
+                preparedStatement.setString(1,ItemName);
+            }
             resultSet = preparedStatement.executeQuery();
 
         if(!resultSet.isBeforeFirst()){
             System.out.println("Item not found in the database");
         }else {
             while(resultSet.next()){
-                list = resultSet.getNString("name");
+                list.add(resultSet.getNString("no"));
+                list.add(resultSet.getNString("name"));
+                list.add(String.valueOf(resultSet.getBigDecimal("price")));
+                list.add(resultSet.getNString("subject"));
+                list.add(resultSet.getNString("color"));
+                list.add(resultSet.getNString("filetype"));
             }
         }
         }catch (SQLException e){
