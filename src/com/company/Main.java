@@ -1,5 +1,4 @@
 package com.company;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,17 +22,17 @@ public class Main {
 
     */
 
-    DBUtils db = new DBUtils();
+    //DBUtils db = new DBUtils();
 
     public static String[] TempData = new String[10];
     public static String TempVal;
     public static Scanner sc = new Scanner(System.in);
 
-    public static ArrayList<String> Fdb = new ArrayList<>();
-    public static ArrayList<String> Sdb = new ArrayList<>();
-    public static ArrayList<String> Edb = new ArrayList<>();
+
 
     public static void enter(){
+        ArrayList<String> Temp = new ArrayList<>();
+        String table;
         while (true){
             System.out.println("=================================================================================");
             System.out.println("Press 1 for Furniture, Press 2 for Electronic Equipment, Press 3 for Stationary");
@@ -41,7 +40,7 @@ public class Main {
             int category = sc.nextInt();
 
             if(category == 1) { //when user need to enter new Furniture item
-
+                table="f";
                 while (true) {
                     System.out.println("=================================================================================");
                     System.out.println("[Press 1 for Chair, Press 2 for Table, Press 3 for Book Rack, Press 4 for Cupboard]");
@@ -66,15 +65,12 @@ public class Main {
 
                     if (name == 1) {
 
-                        fur.Chair("CH"+(Fdb.size()/5+1),"Chair",TempData[0], TempData[1]);
-                        Fdb.add(fur.getNo());
-                        Fdb.add(fur.getName());
-                        Fdb.add(fur.getMaterial());
-                        Fdb.add(fur.getColor());
-                        Fdb.add("---");
-                        System.out.print("Item Recorded with No : "+ fur.getNo());
-                        //System.out.print(Fdb.size());
-
+                        fur.Chair("CH"+(DBUtils.rowcount("f")+1),"Chair",TempData[0], TempData[1]);
+                        Temp.add(fur.getNo());
+                        Temp.add(fur.getName());
+                        Temp.add(fur.getMaterial());
+                        Temp.add(fur.getColor());
+                        Temp.add("---");
                         break;
                     }
                     else if (name == 2) {
@@ -82,33 +78,30 @@ public class Main {
                         System.out.print("Shape : ");
                         TempVal = sc.next();
                         TempData[2] = TempVal;
-                        fur.Table("TB"+(Fdb.size()/5+1),"Table",TempData[0], TempData[1], TempData[2]);
-                        Fdb.add(fur.getNo());
-                        Fdb.add(fur.getName());
-                        Fdb.add(fur.getMaterial());
-                        Fdb.add(fur.getColor());
-                        Fdb.add(fur.getShape());
-                        System.out.print("Item Recorded with No : "+ fur.getNo());
+                        fur.Table("TB"+(DBUtils.rowcount("f")+1),"Table",TempData[0], TempData[1], TempData[2]);
+                        Temp.add(fur.getNo());
+                        Temp.add(fur.getName());
+                        Temp.add(fur.getMaterial());
+                        Temp.add(fur.getColor());
+                        Temp.add(fur.getShape());
                         break;
                     }
                     else if (name == 3) {
-                        fur.BookRacks("BR"+(Fdb.size()/5+1),"Book Rack",TempData[0], TempData[1]);
-                        Fdb.add(fur.getNo());
-                        Fdb.add(fur.getName());
-                        Fdb.add(fur.getMaterial());
-                        Fdb.add(fur.getColor());
-                        Fdb.add("---");
-                        System.out.print("Item Successfully Recorded with, Item No : "+ fur.getNo());
+                        fur.BookRacks("BR"+(DBUtils.rowcount("f")+1),"Book Rack",TempData[0], TempData[1]);
+                        Temp.add(fur.getNo());
+                        Temp.add(fur.getName());
+                        Temp.add(fur.getMaterial());
+                        Temp.add(fur.getColor());
+                        Temp.add("---");
                         break;
                     }
                     else{
-                        fur.Cupboard("CP"+(Fdb.size()/5+1),"Cupboard",TempData[0], TempData[1]);
-                        Fdb.add(fur.getNo());
-                        Fdb.add(fur.getName());
-                        Fdb.add(fur.getMaterial());
-                        Fdb.add(fur.getColor());
-                        Fdb.add("---");
-                        System.out.print("Item Recorded with No : "+ fur.getNo());
+                        fur.Cupboard("CP"+(DBUtils.rowcount("f")+1),"Cupboard",TempData[0], TempData[1]);
+                        Temp.add(fur.getNo());
+                        Temp.add(fur.getName());
+                        Temp.add(fur.getMaterial());
+                        Temp.add(fur.getColor());
+                        Temp.add("---");
                         break;
                     }
 
@@ -116,6 +109,7 @@ public class Main {
                 //System.out.println(name);
             }
             else if(category == 2){
+                table="e";
                 while(true){
                     System.out.println("=================================================================================");
                     System.out.println("Press 1 for Movable, Press 2 for Un-movable");
@@ -146,15 +140,15 @@ public class Main {
                                 TempVal = sc.next();
                                 TempData[1]=TempVal;
 
-                                m.Laptop("LP"+(Edb.size()/8+1),"LapTop",TempData[0],TempData[1]);
-                                Edb.add(m.getNo());
-                                Edb.add(m.getType());
-                                Edb.add(m.getName());
-                                Edb.add(m.getColor());
-                                Edb.add(m.getPrice());
-                                Edb.add("---");
-                                Edb.add("---");
-                                Edb.add("---");
+                                m.Laptop("LP"+(DBUtils.rowcount("e")+1),"LapTop",TempData[0],TempData[1]);
+                                Temp.add(m.getNo());
+                                Temp.add(m.getType());
+                                Temp.add(m.getName());
+                                Temp.add(m.getColor());
+                                Temp.add(m.getPrice());
+                                Temp.add("");
+                                Temp.add("");
+                                Temp.add("");
                                 break;
                             }
 
@@ -164,15 +158,15 @@ public class Main {
                                 TempVal = sc.next();
                                 TempData[1]=TempVal;
 
-                                m.Router("RU"+(Edb.size()/8+1),"Router",TempData[0],TempData[1]);
-                                Edb.add(m.getNo());
-                                Edb.add(m.getType());
-                                Edb.add(m.getName());
-                                Edb.add("---");
-                                Edb.add(m.getPrice());
-                                Edb.add(m.getISP());
-                                Edb.add("---");
-                                Edb.add("---");
+                                m.Router("RU"+(DBUtils.rowcount("e")+1),"Router",TempData[0],TempData[1]);
+                                Temp.add(m.getNo());
+                                Temp.add(m.getType());
+                                Temp.add(m.getName());
+                                Temp.add("---");
+                                Temp.add(m.getPrice());
+                                Temp.add(m.getISP());
+                                Temp.add("---");
+                                Temp.add("---");
                                 break;
                             }
 
@@ -181,15 +175,15 @@ public class Main {
                                 TempVal = sc.next();
                                 TempData[1]=TempVal;
 
-                                m.Tablet("TA"+(Edb.size()/8+1),"Tablet PC",TempData[0],TempData[1]);
-                                Edb.add(m.getNo());
-                                Edb.add(m.getType());
-                                Edb.add(m.getName());
-                                Edb.add("---");
-                                Edb.add(m.getPrice());
-                                Edb.add("---");
-                                Edb.add(m.getBrand());
-                                Edb.add("---");
+                                m.Tablet("TA"+(DBUtils.rowcount("e")+1),"Tablet PC",TempData[0],TempData[1]);
+                                Temp.add(m.getNo());
+                                Temp.add(m.getType());
+                                Temp.add(m.getName());
+                                Temp.add("---");
+                                Temp.add(m.getPrice());
+                                Temp.add("---");
+                                Temp.add(m.getBrand());
+                                Temp.add("---");
                                 break;
                             }
                         }
@@ -218,15 +212,15 @@ public class Main {
                                 System.out.print("Brand : ");
                                 TempVal = sc.next();
                                 TempData[1]=TempVal;
-                                um.Fan("FN"+(Edb.size()/8+1),"Fan",TempData[0],TempData[1]);
-                                Edb.add(um.getNo());
-                                Edb.add(um.getType());
-                                Edb.add(um.getName());
-                                Edb.add("---");
-                                Edb.add(um.getPrice());
-                                Edb.add("---");
-                                Edb.add(um.getBrand());
-                                Edb.add("---");
+                                um.Fan("FN"+(DBUtils.rowcount("e")+1),"Fan",TempData[0],TempData[1]);
+                                Temp.add(um.getNo());
+                                Temp.add(um.getType());
+                                Temp.add(um.getName());
+                                Temp.add("---");
+                                Temp.add(um.getPrice());
+                                Temp.add("---");
+                                Temp.add(um.getBrand());
+                                Temp.add("---");
                                 break;
                             }
 
@@ -235,15 +229,15 @@ public class Main {
                                 System.out.print("Printer Type : ");
                                 TempVal = sc.next();
                                 TempData[1]=TempVal;
-                                um.Printer("PR"+(Edb.size()/8+1),"Printer",TempData[0],TempData[1]);
-                                Edb.add(um.getNo());
-                                Edb.add(um.getType());
-                                Edb.add(um.getName());
-                                Edb.add("---");
-                                Edb.add(um.getPrice());
-                                Edb.add("---");
-                                Edb.add("---");
-                                Edb.add(um.getPrinterType());
+                                um.Printer("PR"+(DBUtils.rowcount("e")+1),"Printer",TempData[0],TempData[1]);
+                                Temp.add(um.getNo());
+                                Temp.add(um.getType());
+                                Temp.add(um.getName());
+                                Temp.add("---");
+                                Temp.add(um.getPrice());
+                                Temp.add("---");
+                                Temp.add("---");
+                                Temp.add(um.getPrinterType());
                                 break;
                             }
 
@@ -251,15 +245,15 @@ public class Main {
                                 System.out.print("Enter the Air Conditioner brand : ");
                                 TempVal = sc.next();
                                 TempData[1]=TempVal;
-                                um.AC("AC"+(Edb.size()/8+1),"Air Conditioner",TempData[0],TempData[1]);
-                                Edb.add(um.getNo());
-                                Edb.add(um.getType());
-                                Edb.add(um.getName());
-                                Edb.add("---");
-                                Edb.add(um.getPrice());
-                                Edb.add("---");
-                                Edb.add(um.getBrand());
-                                Edb.add("---");
+                                um.AC("AC"+(DBUtils.rowcount("e")+1),"Air Conditioner",TempData[0],TempData[1]);
+                                Temp.add(um.getNo());
+                                Temp.add(um.getType());
+                                Temp.add(um.getName());
+                                Temp.add("---");
+                                Temp.add(um.getPrice());
+                                Temp.add("---");
+                                Temp.add(um.getBrand());
+                                Temp.add("---");
                                 break;
                             }
                         }
@@ -270,10 +264,13 @@ public class Main {
                     else{
                         System.out.println("Invalid Input. Please Re-enter..");
                     }
+
                 }
+
 
             }
             else if(category == 3){
+                table="s";
                 while (true) {
                     System.out.println("=================================================================================");
                     System.out.println("[Press 1 for Book, Press 2 for Pencil, Press 3 for Pen, Press 4 for File]");
@@ -295,13 +292,13 @@ public class Main {
                         System.out.print("Subject : ");
                         TempVal = sc.next();
                         TempData[1] = TempVal;
-                        sta.Book("BK"+(Sdb.size()/6+1),"Book",TempData[0], TempData[1]);
-                        Sdb.add(sta.getNo());
-                        Sdb.add(sta.getName());
-                        Sdb.add(sta.getPrice());
-                        Sdb.add(sta.getSubject());
-                        Sdb.add("---");
-                        Sdb.add("---");
+                        sta.Book("BK"+(DBUtils.rowcount("s")+1),"Book",TempData[0], TempData[1]);
+                        Temp.add(sta.getNo());
+                        Temp.add(sta.getName());
+                        Temp.add(sta.getPrice());
+                        Temp.add(sta.getSubject());
+                        Temp.add("---");
+                        Temp.add("---");
                         break;
                     }
                     else if (name == 2) {
@@ -313,13 +310,13 @@ public class Main {
                         TempVal = sc.next();
                         TempData[1] = TempVal;
 
-                        sta.Pencil("PC"+(Sdb.size()/6+1),"Pencil",TempData[0], TempData[1]);
-                        Sdb.add(sta.getNo());
-                        Sdb.add(sta.getName());
-                        Sdb.add(sta.getPrice());
-                        Sdb.add("---");
-                        Sdb.add(sta.getColor());
-                        Sdb.add("---");
+                        sta.Pencil("PC"+(DBUtils.rowcount("s")+1),"Pencil",TempData[0], TempData[1]);
+                        Temp.add(sta.getNo());
+                        Temp.add(sta.getName());
+                        Temp.add(sta.getPrice());
+                        Temp.add("---");
+                        Temp.add(sta.getColor());
+                        Temp.add("---");
                         break;
                     }
                     else if (name == 3) {
@@ -331,13 +328,13 @@ public class Main {
                         TempVal = sc.next();
                         TempData[1] = TempVal;
 
-                        sta.Pen("PE"+(Sdb.size()/6+1),"Pen",TempData[0], TempData[1]);
-                        Sdb.add(sta.getNo());
-                        Sdb.add(sta.getName());
-                        Sdb.add(sta.getPrice());
-                        Sdb.add("---");
-                        Sdb.add(sta.getColor());
-                        Sdb.add("---");
+                        sta.Pen("PE"+(DBUtils.rowcount("s")+1),"Pen",TempData[0], TempData[1]);
+                        Temp.add(sta.getNo());
+                        Temp.add(sta.getName());
+                        Temp.add(sta.getPrice());
+                        Temp.add("---");
+                        Temp.add(sta.getColor());
+                        Temp.add("---");
 
                         break;
                     }
@@ -346,13 +343,13 @@ public class Main {
                         TempVal = sc.next();
                         TempData[0] = TempVal;
 
-                        sta.File("FL"+(Sdb.size()/6+1),"File",TempData[0]);
-                        Sdb.add(sta.getNo());
-                        Sdb.add(sta.getName());
-                        Sdb.add("---");
-                        Sdb.add("---");
-                        Sdb.add("---");
-                        Sdb.add(sta.getFileType());
+                        sta.File("FL"+(DBUtils.rowcount("s")+1),"File",TempData[0]);
+                        Temp.add(sta.getNo());
+                        Temp.add(sta.getName());
+                        Temp.add("---");
+                        Temp.add("---");
+                        Temp.add("---");
+                        Temp.add(sta.getFileType());
                         break;
                     }
 
@@ -364,6 +361,7 @@ public class Main {
             }
             break;
         }
+        DBUtils.enter(Temp,table);
     }
 
     public static void view() throws SQLException {
@@ -429,7 +427,7 @@ public class Main {
             }
             else if (IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP")){
                 Furniture fur =new Furniture();
-                ArrayList<String> TempRec = fur.DisplayForView(Fdb,ItemCode);
+                ArrayList<String> TempRec = fur.DisplayForView(ItemCode);
                 if (TempRec.size()<=5){
                     System.out.print("Invalid Item No. Please Re-Enter..");
                     continue;
@@ -455,12 +453,13 @@ public class Main {
                     fur.setShape(TempVal);
                 }
 
-                String NO = ItemCode.substring(2);
-                int n = Integer.parseInt(NO);
-                n=n-1;
-                Fdb.set(n+2,fur.getMaterial());
-                Fdb.set(n+3,fur.getColor());
-                Fdb.set(n+4,fur.getShape());
+                ArrayList<String> temp = new ArrayList<>();
+
+                temp.add(fur.getName());
+                temp.add(fur.getMaterial());
+                temp.add(fur.getColor());
+                temp.add(fur.getShape());
+                DBUtils.modify("f",ItemCode,temp);
 
             }
 
@@ -469,7 +468,7 @@ public class Main {
                 Electronic.Unmovable um = new Electronic.Unmovable();
                 Electronic elc = new Electronic();
 
-                ArrayList<String> TempRec = elc.DisplayForView(Edb,ItemCode);
+                ArrayList<String> TempRec = elc.DisplayForView(ItemCode);
                 if (TempRec==null){
                     System.out.print("Invalid Item No. Please Re-Enter..");
                     continue;
@@ -512,20 +511,21 @@ public class Main {
                     elc.setPrinterType(TempVal);
                 }
 
-                String NO = ItemCode.substring(2);
-                int n = Integer.parseInt(NO);
+                ArrayList<String> temp = new ArrayList<>();
 
-
-                Edb.set(n+3,elc.getColor());
-                Edb.set(n+4,elc.getPrice());
-                Edb.set(n+5,elc.getISP());
-                Edb.set(n+6,elc.getBrand());
-                Edb.set(n+7,elc.getPrinterType());
+                temp.add(elc.getType());
+                temp.add(elc.getName());
+                temp.add(elc.getPrice());
+                temp.add(elc.getColor());
+                temp.add(elc.getISP());
+                temp.add(elc.getBrand());
+                temp.add(elc.getPrinterType());
+                DBUtils.modify("e",ItemCode,temp);
             }
 
             else {
                 Stationary sta =new Stationary();
-                ArrayList<String> TempRec = sta.DisplayForView(Fdb,ItemCode);
+                ArrayList<String> TempRec = sta.DisplayForView(ItemCode);
                 if (TempRec==null){
                     System.out.print("Invalid Item No. Please Re-Enter..");
                     continue;
@@ -560,13 +560,14 @@ public class Main {
                     sta.setColor(TempVal);
                 }
 
-                String NO = ItemCode.substring(2);
-                int n = Integer.parseInt(NO);
+                ArrayList<String> temp = new ArrayList<>();
 
-                Sdb.set(n+2,sta.getPrice());
-                Sdb.set(n+3,sta.getSubject());
-                Sdb.set(n+4,sta.getColor());
-                Sdb.set(n+5,sta.getFileType());
+                temp.add(sta.getName());
+                temp.add(sta.getPrice());
+                temp.add(sta.getSubject());
+                temp.add(sta.getColor());
+                temp.add(sta.getFileType());
+                DBUtils.modify("s",ItemCode,temp);
             }
             break;
         }
@@ -577,7 +578,7 @@ public class Main {
 
         while (true){
             System.out.println("=================================================================================");
-            System.out.println("Enter the Item Code : ");
+            System.out.print("Enter the Item Code : ");
             String ItemCode=sc.next();
             String IN1 = Character.toString(ItemCode.charAt(0));
             String IN2 = Character.toString(ItemCode.charAt(1));
@@ -589,34 +590,15 @@ public class Main {
 
             else if (IN.equals("CH") || IN.equals("TB") || IN.equals("BR") || IN.equals("CP")){
                 Furniture fur = new Furniture();
-                ArrayList<String> TempRec = fur.DisplayForView(Fdb,ItemCode);
+                ArrayList<String> TempRec = fur.DisplayForView(ItemCode);
                 if (TempRec==null){
                     System.out.print("Invalid Item No. Please Re-Enter..");
                     continue;
                 }
-
-                switch (IN) {
-                    case "CH" -> fur.Chair(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
-                    case "TB" -> fur.Table(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3), TempRec.get(4));
-                    case "BR" -> fur.BookRacks(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
-                    case "CP" -> fur.Cupboard(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
+                else{
+                    DBUtils.remove(ItemCode,"f");
                 }
 
-                TempVal="---";
-                fur.setMaterial(TempVal);
-                fur.setColor(TempVal);
-                fur.setShape(TempVal);
-                fur.setNo(TempVal);
-                fur.setName(TempVal);
-
-                String NO = ItemCode.substring(2);
-                int n = Integer.parseInt(NO);
-                n=n-1;
-                Fdb.set(n,fur.getNo());
-                Fdb.set(n+1,fur.getName());
-                Fdb.set(n+2,fur.getMaterial());
-                Fdb.set(n+3,fur.getColor());
-                Fdb.set(n+4,fur.getShape());
             }
 
             else if (IN.equals("LP") || IN.equals("RU") || IN.equals("TA") || IN.equals("FN") || IN.equals("PR") || IN.equals("AC")){
@@ -624,76 +606,27 @@ public class Main {
                 Electronic.Unmovable um = new Electronic.Unmovable();
                 Electronic elc = new Electronic();
 
-                ArrayList<String> TempRec = new ArrayList<>(elc.DisplayForView(Edb, ItemCode));
+                ArrayList<String> TempRec = new ArrayList<>(elc.DisplayForView(ItemCode));
 
                 if (TempRec.size()<=5){
                     System.out.print("Invalid Item No. Please Re-Enter..");
                     continue;
                 }
-                switch (IN) {
-                    case "LP" -> m.Laptop(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(4));
-                    case "RU" -> m.Router(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(5));
-                    case "TA" -> m.Tablet(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
-                    case "FN" -> um.Fan(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
-                    case "PR" -> um.Printer(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(7));
-                    case "AC" -> um.AC(TempRec.get(0), TempRec.get(2), TempRec.get(3), TempRec.get(6));
+                else{
+                    DBUtils.remove(ItemCode,"e");
                 }
-
-                TempVal="---";
-                elc.setNo(TempVal);
-                elc.setName(TempVal);
-                elc.setType(TempVal);
-                elc.setColor(TempVal);
-                elc.setPrice(TempVal);
-                elc.setISP(TempVal);
-                elc.setBrand(TempVal);
-                elc.setPrinterType(TempVal);
-
-                String NO = ItemCode.substring(2);
-                int n = Integer.parseInt(NO);
-
-                Edb.set(n,elc.getNo());
-                Edb.set(n+1,elc.getType());
-                Edb.set(n+2,elc.getName());
-                Edb.set(n+3,elc.getColor());
-                Edb.set(n+4,elc.getPrice());
-                Edb.set(n+5,elc.getISP());
-                Edb.set(n+6,elc.getBrand());
-                Edb.set(n+7,elc.getPrinterType());
             }
 
             else {
                 Stationary sta =new Stationary();
-                ArrayList<String> TempRec = sta.DisplayForView(Fdb,ItemCode);
+                ArrayList<String> TempRec = sta.DisplayForView(ItemCode);
                 if (TempRec==null){
                     System.out.print("Invalid Item No. Please Re-Enter..");
                     continue;
                 }
-
-                switch (IN) {
-                    case "BK" -> sta.Book(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(3));
-                    case "PC" -> sta.Pencil(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(4));
-                    case "PE" -> sta.Pen(TempRec.get(0), TempRec.get(1), TempRec.get(2), TempRec.get(4));
-                    case "FL" -> sta.File(TempRec.get(0), TempRec.get(1), TempRec.get(5));
+                else {
+                    DBUtils.remove(ItemCode,"s");
                 }
-
-                TempVal="---";
-                sta.setNo(TempVal);
-                sta.setName((TempVal));
-                sta.setPrice(TempVal);
-                sta.setFileType(TempVal);
-                sta.setSubject(TempVal);
-                sta.setColor(TempVal);
-
-                String NO = ItemCode.substring(2);
-                int n = Integer.parseInt(NO);
-
-                Sdb.set(n,sta.getNo());
-                Sdb.set(n+1,sta.getName());
-                Sdb.set(n+2,sta.getPrice());
-                Sdb.set(n+3,sta.getSubject());
-                Sdb.set(n+4,sta.getColor());
-                Sdb.set(n+5,sta.getFileType());
             }
             System.out.print("Successfully Removed the Record..!!");
             break;
@@ -722,7 +655,7 @@ public class Main {
                 modify();
             }
             else if (option == 3){
-                //remove();
+                remove();
             }
             else if (option == 4){
                 view();

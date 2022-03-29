@@ -166,22 +166,8 @@ public class Electronic {
         System.out.println(list);
     }
 
-    public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){
-        ArrayList<String> Temp = new ArrayList<>();
-        int i=0;
-        for (String s : db){
-            if (ItemCode.equals(s)){
-                Temp.add(db.get(i));
-                Temp.add(db.get(i+1));
-                Temp.add(db.get(i+2));
-                Temp.add(db.get(i+3));
-                Temp.add(db.get(i+4));
-                Temp.add(db.get(i+5));
-                Temp.add(db.get(i+6));
-                Temp.add(db.get(i+7));
-            }
-            i++;
-        }
+    public ArrayList<String> DisplayForView(String ItemCode){
+        ArrayList<String> Temp = DBUtils.view("s", ItemCode, cols);
         return Temp;
     }
 }
