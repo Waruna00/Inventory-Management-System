@@ -1,4 +1,5 @@
 package com.company;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -88,6 +89,7 @@ public class Stationary {
 
     public void display(String TempUserInput) throws SQLException {
         String ItemName;
+        String sql;
         ArrayList<String> list=null;
         if (TempUserInput.equals("0")){
             ItemName="ALL";
@@ -96,7 +98,8 @@ public class Stationary {
             ItemName = TempUserInput;
         }
         DBUtils data = new DBUtils();
-        list = DBUtils.view(ItemName);
+        list = DBUtils.view("s",ItemName);
+        System.out.println(list);
     }
 
     public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){

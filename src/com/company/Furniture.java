@@ -1,4 +1,5 @@
 package com.company;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Furniture {
@@ -59,57 +60,18 @@ public class Furniture {
         return No;
     }
 
-    public void display(ArrayList<String> db, int TempUserInput){
+    public void display(String TempUserInput) throws SQLException {
         String ItemName;
-        if (TempUserInput==0){
+        ArrayList<String> list=null;
+        if (TempUserInput.equals("0")){
             ItemName="ALL";
         }
-        else if (TempUserInput==1){
-            ItemName="CH";
-        }
-        else if (TempUserInput==2){
-            ItemName="TB";
-        }
-        else if (TempUserInput==3){
-            ItemName="BR";
-        }
         else {
-            ItemName="CP";
+            ItemName = TempUserInput;
         }
-        ArrayList<String> TempList = new ArrayList<>();
-
-        if (ItemName.equals("ALL")) {
-            TempList.addAll(db);
-        }
-        else {
-            for (int i=0; i< db.size(); i=i+5){
-                String No=db.get(i);
-                String IN1 = Character.toString(No.charAt(0));
-                String IN2 = Character.toString(No.charAt(1));
-                String IN = IN1+IN2;
-                if (IN.equals(ItemName)){
-                    for(int ii=i; ii<i+5; ii++){
-                        TempList.add(db.get(ii));
-                    }
-                }
-            }
-        }
-
-        System.out.print("No"+"\t"+"Name"+"\t"+"Material "+" Color"+"\t"+"Shape"+"\n");
-        int i=1;
-        for (String s : TempList) {
-            if (s==null || s.equals("---")){
-                System.out.print("\t");
-            }
-            else {
-                System.out.print(s+"\t");
-                if (i%5==0){
-                    System.out.print("\n");
-                }
-            }
-
-            i++;
-        }
+        DBUtils data = new DBUtils();
+        list = DBUtils.view("f",ItemName);
+        System.out.println(list);
     }
 
     public void setNo(String no) {

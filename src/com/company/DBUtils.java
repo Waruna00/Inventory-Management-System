@@ -1,25 +1,34 @@
 package com.company;
 
+import java.awt.event.ItemEvent;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class DBUtils {
 
-    public static ArrayList<String> view(String ItemName) {
+    public static ArrayList<String> view(String table,String ItemName) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         ArrayList<String> list = new ArrayList<>();
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory","root","Whoiam@123");
-            if (ItemName.equals("ALL")){
-                preparedStatement = connection.prepareStatement("SELECT * FROM stationary");
+            if (table.equals("s")){
+                if (ItemName.equals("ALL")){
+                    preparedStatement = connection.prepareStatement("SELECT * FROM stationary");
+                }
+                else {
+                    preparedStatement = connection.prepareStatement("SELECT * FROM stationary WHERE no = ?");
+                    preparedStatement.setString(1,ItemName);
+                }
             }
-            else {
-                preparedStatement = connection.prepareStatement("SELECT * FROM stationary WHERE no = ?");
-                preparedStatement.setString(1,ItemName);
+            else if(table.equals("f")){
+
             }
+
+
             resultSet = preparedStatement.executeQuery();
+            System.out.println("Executed");
 
         if(!resultSet.isBeforeFirst()){
             System.out.println("Item not found in the database");

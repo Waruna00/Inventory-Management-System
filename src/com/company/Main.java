@@ -391,7 +391,7 @@ public class Main {
             TempUserInput = sc.next();
 
             Furniture fur = new Furniture();
-            //fur.display(Fdb,TempUserInput);
+            fur.display(TempUserInput);
         }
         else if (category==2){
             Electronic elc = new Electronic();
