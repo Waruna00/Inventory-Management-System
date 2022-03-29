@@ -98,6 +98,7 @@ public class Furniture {
     public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){
         ArrayList<String> Temp = new ArrayList<>();
         int i=0;
+        Temp = DBUtils.view("f",ItemCode,cols);
         for (String s : db){
             if (ItemCode.equals(s)){
                 Temp.add(db.get(i));

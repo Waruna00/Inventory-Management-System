@@ -112,7 +112,7 @@ public class DBUtils {
             else {
                 preparedStatement = connection.prepareStatement("SELECT * FROM electronic WHERE no = ?");
             }
-            preparedStatement = connection.prepareStatement("SELECT * FROM stationary");
+            preparedStatement.setString(1,ItemName);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
