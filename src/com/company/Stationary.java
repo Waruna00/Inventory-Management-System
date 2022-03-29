@@ -11,6 +11,7 @@ public class Stationary {
     String subject;
     String color;
     String FileType;
+    String[] cols = {"no","name","price","subject","color","filetype"};
 
     public void Book(String No,String name, String price,String sub) {
         this.No=No;
@@ -98,7 +99,7 @@ public class Stationary {
             ItemName = TempUserInput;
         }
         DBUtils data = new DBUtils();
-        list = DBUtils.view("s",ItemName);
+        list = DBUtils.view("s",ItemName,cols);
         System.out.println(list);
     }
 

@@ -398,9 +398,9 @@ public class Main {
             System.out.println("=================================================================================");
             System.out.println("Press 0 for All Categories, Press 1 for Movable, Press 2 for Un-movable");
             System.out.print("Enter the item No :");
-            choice = sc.nextInt();
+            TempUserInput = sc.next();
 
-            elc.display(Edb,1,choice);
+            elc.display(TempUserInput);
         }
 
         else{
@@ -415,7 +415,7 @@ public class Main {
 
     }
 
-    /*public static void modify(){
+    public static void modify(){
         while(true){
             System.out.println("=================================================================================");
             System.out.print("Enter the Item Code : ");
@@ -700,7 +700,7 @@ public class Main {
 
         }
     }
-*/
+
     public static void main(String[] args) throws SQLException {
 
         Scanner sc = new Scanner(System.in);
@@ -719,7 +719,7 @@ public class Main {
                 enter();
             }
             else if (option == 2){
-                //modify();
+                modify();
             }
             else if (option == 3){
                 //remove();

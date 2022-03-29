@@ -1,4 +1,5 @@
 package com.company;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Electronic {
@@ -10,6 +11,7 @@ public class Electronic {
     String ISP;
     String brand;
     String PrinterType;
+    String[] cols = {"no","type","name","price","color","ISP","brand","printertype"};
 
 
     public static class Movable extends Electronic{
@@ -149,98 +151,19 @@ public class Electronic {
         PrinterType = printerType;
     }
 
-    public void display(ArrayList<String> db, int TempUserInput, int choice){
+    public void display(String TempUserInput) throws SQLException {
         String ItemName;
-        if (TempUserInput==-1){
+        String sql;
+        ArrayList<String> list=null;
+        if (TempUserInput.equals("0")){
             ItemName="ALL";
         }
-        else if (TempUserInput==1 && choice==1){
-            ItemName="LP";
+        else {
+            ItemName = TempUserInput;
         }
-        else if (TempUserInput==2 && choice==1){
-            ItemName="RU";
-        }
-        else if (TempUserInput==3 && choice==1){
-            ItemName="TB";
-        }
-        else if (TempUserInput==1 && choice==2){
-            ItemName="FN";
-        }
-        else if (TempUserInput==2 && choice==2){
-            ItemName="FPR";
-        }
-        else if (TempUserInput==3 && choice==2){
-            ItemName="AC";
-        }
-        else if (TempUserInput==0 && choice==1){
-            ItemName="M";
-        }
-        else{
-            ItemName="UM";
-        }
-
-        ArrayList<String> TempList = new ArrayList<>();
-
-        switch (ItemName) {
-            case "ALL":
-                TempList.addAll(db);
-                break;
-            case "M":
-                for (int i = 0; i < db.size(); i = i + 8){
-                    String No = db.get(i);
-                    String IN1 = Character.toString(No.charAt(0));
-                    String IN2 = Character.toString(No.charAt(1));
-                    String IN = IN1 + IN2;
-                    if (IN.equals("LP")||IN.equals("RU")||IN.equals("TA")) {
-                        for (int ii = i; ii < i + 8; ii++) {
-                            TempList.add(db.get(ii));
-                        }
-                    }
-                }
-                break;
-            case "UM":
-                for (int i = 0; i < db.size(); i = i + 8){
-                    String No = db.get(i);
-                    String IN1 = Character.toString(No.charAt(0));
-                    String IN2 = Character.toString(No.charAt(1));
-                    String IN = IN1 + IN2;
-                    if (IN.equals("FN")||IN.equals("PR")||IN.equals("AC")) {
-                        for (int ii = i; ii < i + 8; ii++) {
-                            TempList.add(db.get(ii));
-                        }
-                    }
-                }
-
-                break;
-            default:
-                for (int i = 0; i < db.size(); i = i + 8) {
-                    String No = db.get(i);
-                    String IN1 = Character.toString(No.charAt(0));
-                    String IN2 = Character.toString(No.charAt(1));
-                    String IN = IN1 + IN2;
-                    if (IN.equals(ItemName)) {
-                        for (int ii = i; ii < i + 8; ii++) {
-                            TempList.add(db.get(ii));
-                        }
-                    }
-                }
-                break;
-        }
-
-        System.out.print("No"+"\t"+"Name"+"\t"+"Color"+"\t"+"Price"+"\t"+"ISP"+"\t"+"Brand"+"\t"+"Printer Type"+"\n");
-        int i=1;
-        for (String s : TempList) {
-            if (s==null || s.equals("---")){
-                System.out.print("\t");
-                i++;
-                continue;
-            }
-            System.out.print(s+"\t");
-            if (i%8==0){
-                System.out.print("\n");
-            }
-            i++;
-        }
+        DBUtils data = new DBUtils();
+        list = DBUtils.view("s",ItemName,cols);
+        System.out.println(list);
     }
 
     public ArrayList<String> DisplayForView(ArrayList<String> db,String ItemCode){

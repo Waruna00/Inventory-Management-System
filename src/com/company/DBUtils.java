@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class DBUtils {
 
-    public static ArrayList<String> view(String table,String ItemName) {
+    public static ArrayList<String> view(String table,String ItemName,String[] col) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -22,8 +22,21 @@ public class DBUtils {
                     preparedStatement.setString(1,ItemName);
                 }
             }
-            else if(table.equals("f")){
-
+            else if(table.equals("f")) {
+                if (ItemName.equals("ALL")) {
+                    preparedStatement = connection.prepareStatement("SELECT * FROM furniture");
+                } else {
+                    preparedStatement = connection.prepareStatement("SELECT * FROM furniture WHERE no = ?");
+                    preparedStatement.setString(1, ItemName);
+                }
+            }
+            else {
+                if (ItemName.equals("ALL")) {
+                    preparedStatement = connection.prepareStatement("SELECT * FROM electronic");
+                } else {
+                    preparedStatement = connection.prepareStatement("SELECT * FROM stationary WHERE no = ?");
+                    preparedStatement.setString(1, ItemName);
+                }
             }
 
 
@@ -34,12 +47,20 @@ public class DBUtils {
             System.out.println("Item not found in the database");
         }else {
             while(resultSet.next()){
-                list.add(resultSet.getNString("no"));
-                list.add(resultSet.getNString("name"));
-                list.add(String.valueOf(resultSet.getBigDecimal("price")));
-                list.add(resultSet.getNString("subject"));
-                list.add(resultSet.getNString("color"));
-                list.add(resultSet.getNString("filetype"));
+                for(String n : col){
+                    if(n.equals("price")){
+                        list.add(String.valueOf(resultSet.getBigDecimal(n)));
+                    }
+                    else {
+                        list.add(resultSet.getNString(n));
+                    }
+                }
+                //list.add(resultSet.getNString("no"));
+                //list.add(resultSet.getNString("name"));
+                //list.add(String.valueOf(resultSet.getBigDecimal("price")));
+                //list.add(resultSet.getNString("subject"));
+                //list.add(resultSet.getNString("color"));
+                //list.add(resultSet.getNString("filetype"));
             }
         }
         }catch (SQLException e){
@@ -73,5 +94,49 @@ public class DBUtils {
         }
 
         return list;
+    }
+
+    public static void modify(String table,String ItemName) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory", "root", "Whoiam@123");
+            if(table.equals("s")){
+                preparedStatement = connection.prepareStatement("SELECT * FROM stationary WHERE no = ?");
+            }
+            else if(table.equals("f")){
+                preparedStatement = connection.prepareStatement("SELECT * FROM furniture WHERE no = ?");
+            }
+            else {
+                preparedStatement = connection.prepareStatement("SELECT * FROM electronic WHERE no = ?");
+            }
+            preparedStatement = connection.prepareStatement("SELECT * FROM stationary");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

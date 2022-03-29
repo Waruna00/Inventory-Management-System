@@ -8,6 +8,7 @@ public class Furniture {
     String material;
     String color;
     String shape;
+    String[] cols = {"no","name","material","color","shape"};
 
     public void Chair(String No,String name, String mat, String col){
         this.No=No;
@@ -70,7 +71,7 @@ public class Furniture {
             ItemName = TempUserInput;
         }
         DBUtils data = new DBUtils();
-        list = DBUtils.view("f",ItemName);
+        list = DBUtils.view("f",ItemName,cols);
         System.out.println(list);
     }
 
